@@ -48,21 +48,21 @@ class Api {
     }
   }
 
-  Future get(url) async {
+  Future<dynamic> get(url) async {
     if (token == null) await authorize();
     var res = await http.get(config.url + url, headers: { HttpHeaders.authorizationHeader: 'Bearer $token' });
     if (res.statusCode.toString()[0] != '2') throw Exception('Failed to load $url');
-    return json.decode(res.body);
+    return _parseJson(res.body);
   }
 
-  Future<String> post(url, body) async {
+  Future<dynamic> post(url, body) async {
     if (token == null) await authorize();
     var res = await http.post(config.url + url, body: json.encode(body), headers: {
       HttpHeaders.authorizationHeader: 'Bearer $token',
       HttpHeaders.contentTypeHeader: 'application/json'
     });
     if (res.statusCode.toString()[0] != '2') throw Exception('Failed to load $url');
-    return res.body;
+    return _parseJson(res.body);
   }
 
   Future<List<Endpoint>> getEndpoints() async {
@@ -72,5 +72,15 @@ class Api {
     _response.forEach((endpoint) => _endpoints.add(Endpoint.fromJson(endpoint)));
     endpoints = _endpoints;
     return _endpoints;
+  }
+
+  dynamic _parseJson(String body) {
+    var _body;
+    try {
+      _body = json.decode(body);
+    } catch (err) {
+      _body = body;
+    }
+    return _body;
   }
 }
