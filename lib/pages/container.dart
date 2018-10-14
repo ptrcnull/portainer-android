@@ -33,13 +33,13 @@ void stopContainer (BuildContext context, DContainer container) async {
 
 void pauseContainer (BuildContext context, DContainer container) async {
   await container.pause();
-  print('Restarted!');
+  print('Paused!');
   refreshContainers(context, container.endpoint);
 }
 
-void resumeContainer (BuildContext context, DContainer container) async {
-  await container.resume();
-  print('Restarted!');
+void unpauseContainer (BuildContext context, DContainer container) async {
+  await container.unpause();
+  print('Unpaused!');
   refreshContainers(context, container.endpoint);
 }
 
@@ -90,7 +90,7 @@ MaterialPageRoute getContainerPage(DContainer container) {
                   getButton(
                     Icons.play_arrow,
                     colors['paused'],
-                    onPressed: container.state == 'paused' ? () => resumeContainer(context, container) : null
+                    onPressed: container.state == 'paused' ? () => unpauseContainer(context, container) : null
                   ),
                   getButton(
                     Icons.refresh,

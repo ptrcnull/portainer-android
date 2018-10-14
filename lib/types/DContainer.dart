@@ -26,7 +26,7 @@ class DContainer {
     print(_response);
   }
 
-  Future<void> resume() async {
+  Future<void> unpause() async {
     final _response = await MyApp.api.post(url + 'unpause', {});
     print(_response);
   }
