@@ -39,6 +39,14 @@ class Endpoint {
     return images;
   }
 
+  Future<void> pullImage(String image, String tag) async {
+    await MyApp.api.post('/api/endpoints/1/docker/images/create?fromImage=$image&tag=$tag', {});
+  }
+
+  Future<void> buildImage(String tag, String remote) async {
+    await MyApp.api.post('/api/endpoints/$id/docker/build?dockerfile=Dockerfile&remote=$remote&t=$tag', {});
+  }
+
   List<DContainer> containers;
   List<DImage> images;
   List<Volume> volumes;

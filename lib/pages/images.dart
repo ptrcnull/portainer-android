@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/asyncList.dart';
 import 'image.dart';
+import 'addImage.dart';
 import '../types/Endpoint.dart';
 import '../types/DImage.dart';
 
@@ -41,7 +42,16 @@ MaterialPageRoute getImagesPage(Endpoint endpoint) {
               Navigator.of(context).push(getImagePage(image));
             },
           )
-        )
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).push(getAddImagePage(endpoint));
+            },
+            tooltip: 'New',
+            child: Icon(Icons.add),
+            elevation: 2.0,
+        ),
       );
     },
   );
