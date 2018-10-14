@@ -12,19 +12,19 @@ var colors = {
   'restarting': Colors.lightBlue
 };
 
-MaterialPageRoute getContainersForEndpoint(Endpoint endpoint) {
+MaterialPageRoute getContainersPage(Endpoint endpoint) {
   return MaterialPageRoute<void>(
     builder: (BuildContext context) {
       return new Scaffold(
         appBar: new AppBar(
-          title: Text('${endpoint.name}: Containers'),
+          title: Text('${endpoint.name} > Containers'),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.refresh, color: Colors.white),
               onPressed: () {
                 endpoint.containers = null;
                 Navigator.of(context).pop();
-                Navigator.of(context).push(getContainersForEndpoint(endpoint));
+                Navigator.of(context).push(getContainersPage(endpoint));
               },
             ),
           ],

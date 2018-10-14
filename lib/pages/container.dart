@@ -23,7 +23,7 @@ void refreshContainer(BuildContext context, DContainer container) async {
     );
   } else {
     Navigator.of(context).pop();
-    Navigator.of(context).push(getContainersForEndpoint(endpoint));
+    Navigator.of(context).push(getContainersPage(endpoint));
   }
 }
 
@@ -93,16 +93,12 @@ MaterialPageRoute getContainerPage(DContainer container) {
       return new Scaffold(
         appBar: new AppBar(
           title: Text(container.name),
-          // actions: <Widget>[
-          //   IconButton(
-          //     icon: Icon(Icons.refresh, color: Colors.white),
-          //     onPressed: () {
-          //       endpoint.containers = null;
-          //       Navigator.of(context).pop();
-          //       Navigator.of(context).push(getContainersForEndpoint(endpoint));
-          //     },
-          //   ),
-          // ],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh, color: Colors.white),
+              onPressed: () => refreshContainer(context, container),
+            ),
+          ],
         ),
         body: ListView(
           padding: EdgeInsets.all(16.0),

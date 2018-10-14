@@ -25,7 +25,7 @@ MaterialPageRoute getMainEndpointPage(Endpoint endpoint) {
                 endpoint.runningContainers.toString() + '/' +
                 endpoint.containerCount.toString() + ' running'
               ),
-              onTap: () => Navigator.of(context).push(getContainersForEndpoint(endpoint))
+              onTap: () => Navigator.of(context).push(getContainersPage(endpoint))
             ),
             new ListTile(
               title: Text('Images', style: TextStyle(fontSize: 18.0)),
