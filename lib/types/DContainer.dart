@@ -6,9 +6,9 @@ class DContainer {
   final List<dynamic> names;
   final String image;
   final String state;
-  String name;
   final String status;
   final Endpoint endpoint;
+  String get name => names[0].substring(1);
   String get url => '/api/endpoints/${endpoint.id}/docker/containers/$id/';
 
   Future<void> start() async {
