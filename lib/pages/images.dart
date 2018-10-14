@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../components/asyncList.dart';
-import './image.dart';
+import 'image.dart';
 import '../types/Endpoint.dart';
-import '../types/Image.dart';
+import '../types/DImage.dart';
 
 MaterialPageRoute getImagesPage(Endpoint endpoint) {
   return MaterialPageRoute<void>(

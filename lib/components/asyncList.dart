@@ -15,10 +15,10 @@ Widget createAsyncList(Future future, { Function handler = createListTile }) {
     future: future,
     builder: (context, snapshot) {
       switch (snapshot.connectionState) {
-        case ConnectionState.none: return new Text('Waiting to start');
-        case ConnectionState.waiting: return new Text('Loading...');
+        case ConnectionState.none: return Center(child: Text('Waiting to start'));
+        case ConnectionState.waiting: return Center(child: CircularProgressIndicator());
         default:
-          if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+          if (snapshot.hasError) return Center(child: Text('Error: ${snapshot.error}'));
           return new ListView.builder(
             padding: const EdgeInsets.all(10.0),
             itemBuilder: (context, i) {

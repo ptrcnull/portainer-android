@@ -1,7 +1,7 @@
 import '../main.dart';
 import 'DContainer.dart';
-import 'Image.dart';
-import 'Volume.dart';
+import 'DImage.dart';
+import 'DVolume.dart';
 
 class Endpoint {
   final int id;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'containers.dart';
 import '../types/DContainer.dart';
+import '../components/loader.dart';
 
 var colors = {
   'running': Colors.green[300],
@@ -13,7 +14,7 @@ var colors = {
 void refreshContainer(BuildContext context, DContainer container) async {
   final endpoint = container.endpoint;
   endpoint.containers = null;
-  await endpoint.getContainers();
+  await showLoader(context, endpoint.getContainers());
   if (endpoint.containers.any((_container) => _container.id == container.id)) {
     Navigator.of(context).pop();
     Navigator.of(context).push(
@@ -28,31 +29,31 @@ void refreshContainer(BuildContext context, DContainer container) async {
 }
 
 void startContainer (BuildContext context, DContainer container) async {
-  await container.start();
+  await showLoader(context, container.start());
   print('Started!');
   refreshContainer(context, container);
 }
 
 void stopContainer (BuildContext context, DContainer container) async {
-  await container.stop();
+  await showLoader(context, container.stop());
   print('Stopped!');
   refreshContainer(context, container);
 }
 
 void pauseContainer (BuildContext context, DContainer container) async {
-  await container.pause();
+  await showLoader(context, container.pause());
   print('Paused!');
   refreshContainer(context, container);
 }
 
 void unpauseContainer (BuildContext context, DContainer container) async {
-  await container.unpause();
+  await showLoader(context, container.unpause());
   print('Unpaused!');
   refreshContainer(context, container);
 }
 
 void restartContainer (BuildContext context, DContainer container) async {
-  await container.restart();
+  await showLoader(context, container.restart());
   print('Restarted!');
   refreshContainer(context, container);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'images.dart';
-import '../types/Image.dart';
+import '../types/DImage.dart';
 
 void refreshImage(BuildContext context, DImage image) async {
   final endpoint = image.endpoint;
