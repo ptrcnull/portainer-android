@@ -73,7 +73,11 @@ class Api {
   }
 
   dynamic handleResponse (String url, http.Response response) {
-    if (response.statusCode.toString()[0] != '2') throw Exception('Failed to load $url');
+    if (response.statusCode.toString()[0] != '2') {
+      print(response.statusCode);
+      print(response.body);
+      throw Exception('Failed to load $url');
+    }
     return _parseJson(response.body);
   }
 
