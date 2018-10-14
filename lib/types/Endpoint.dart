@@ -1,10 +1,6 @@
 import '../main.dart';
 import 'DContainer.dart';
 
-const statuses = [
-  "test"
-];
-
 class Endpoint {
   final int id;
   final String name;
