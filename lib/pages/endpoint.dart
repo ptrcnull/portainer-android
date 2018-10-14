@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'containers.dart';
-import '../Endpoint.dart';
+import '../types/Endpoint.dart';
 
 var listItems = [
   'Dashboard',

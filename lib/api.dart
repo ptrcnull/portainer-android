@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 
-import 'Endpoint.dart';
+import 'types/Endpoint.dart';
 
 import 'package:http/http.dart' as http;
 

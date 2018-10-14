@@ -1,7 +1,7 @@
-import 'main.dart';
+import '../main.dart';
 import 'Endpoint.dart';
 
-class Container {
+class DContainer {
   final String id;
   final List<dynamic> names;
   final String image;
@@ -36,9 +36,9 @@ class Container {
     print(_response);
   }
 
-  Container(this.endpoint, this.id, this.names, this.image, this.state, this.status);
+  DContainer(this.endpoint, this.id, this.names, this.image, this.state, this.status);
 
-  factory Container.fromJson(Endpoint endpoint, Map<String, dynamic> json) {
-    return Container(endpoint, json['Id'], json['Names'], json['Image'], json['State'], json['Status']);
+  factory DContainer.fromJson(Endpoint endpoint, Map<String, dynamic> json) {
+    return DContainer(endpoint, json['Id'], json['Names'], json['Image'], json['State'], json['Status']);
   }
 }

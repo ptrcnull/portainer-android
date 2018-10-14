@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'containers.dart';
-import '../Container.dart' as DockerContainer;
-import '../Endpoint.dart';
+import '../types/DContainer.dart';
+import '../types/Endpoint.dart';
 
 var colors = {
   'running': Colors.green[300],
@@ -19,37 +19,37 @@ void refreshContainers (BuildContext context, Endpoint endpoint) {
   Navigator.of(context).push(getContainersForEndpoint(endpoint));
 }
 
-void startContainer (BuildContext context, DockerContainer.Container container) async {
+void startContainer (BuildContext context, DContainer container) async {
   await container.start();
   print('Started!');
   refreshContainers(context, container.endpoint);
 }
 
-void stopContainer (BuildContext context, DockerContainer.Container container) async {
+void stopContainer (BuildContext context, DContainer container) async {
   await container.stop();
   print('Stopped!');
   refreshContainers(context, container.endpoint);
 }
 
-void pauseContainer (BuildContext context, DockerContainer.Container container) async {
+void pauseContainer (BuildContext context, DContainer container) async {
   await container.pause();
   print('Restarted!');
   refreshContainers(context, container.endpoint);
 }
 
-void resumeContainer (BuildContext context, DockerContainer.Container container) async {
+void resumeContainer (BuildContext context, DContainer container) async {
   await container.resume();
   print('Restarted!');
   refreshContainers(context, container.endpoint);
 }
 
-void restartContainer (BuildContext context, DockerContainer.Container container) async {
+void restartContainer (BuildContext context, DContainer container) async {
   await container.restart();
   print('Restarted!');
   refreshContainers(context, container.endpoint);
 }
 
-MaterialPageRoute getContainerPage(DockerContainer.Container container) {
+MaterialPageRoute getContainerPage(DContainer container) {
   return MaterialPageRoute<void>(
     builder: (BuildContext context) {
       return new Scaffold(

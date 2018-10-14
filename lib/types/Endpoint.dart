@@ -1,5 +1,5 @@
-import 'Container.dart';
-import 'main.dart';
+import '../main.dart';
+import 'DContainer.dart';
 
 const statuses = [
   "test"
@@ -19,13 +19,13 @@ class Endpoint {
   String get containersStatus => this.runningContainers.toString() + '/' + this.containerCount.toString() + ' running';
   String get status => this.statusNum == 1 ? "up" : "down";
 
-  Future<List<Container>> getContainers() async {
+  Future<List<DContainer>> getContainers() async {
     if (this.containers != null) return this.containers;
     final _response = await MyApp.api.get('/api/endpoints/${this.id}/docker/containers/json?all=1');
     print(_response[0]);
-    List<Container> containers = [];
+    List<DContainer> containers = [];
     _response.forEach((container) {
-      var instance = Container.fromJson(this, container);
+      var instance = DContainer.fromJson(this, container);
       instance.name = instance.names[0].substring(1);
       containers.add(instance);
     });
@@ -33,7 +33,7 @@ class Endpoint {
     return containers;
   }
 
-  List<Container> containers;
+  List<DContainer> containers;
 
   Endpoint(
     this.id,

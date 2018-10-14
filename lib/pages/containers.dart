@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../components/asyncList.dart';
 import './container.dart';
-import '../Endpoint.dart';
-import '../Container.dart' as DockerContainer;
+import '../types/Endpoint.dart';
+import '../types/DContainer.dart';
 
 var colors = {
   'running': Colors.green[300],
@@ -31,7 +31,7 @@ MaterialPageRoute getContainersForEndpoint(Endpoint endpoint) {
         ),
         body: createAsyncList(
           endpoint.getContainers(),
-          handler: (context, DockerContainer.Container container) => ListTile(
+          handler: (context, DContainer container) => ListTile(
             title: Text(container.name, style: TextStyle(fontSize: 18.0)),
             trailing: Container(
               child: Text(container.status.toLowerCase()),
