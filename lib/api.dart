@@ -19,6 +19,10 @@ class Config {
 
 class Api {
   String token;
+  Map<String, String> get getHeaders => { HttpHeaders.authorizationHeader: 'Bearer $token' };
+  Map<String, String> get postHeaders => {}..addAll(getHeaders)..addAll({
+    HttpHeaders.contentTypeHeader: 'application/json'
+  });
   Config config;
   List<Endpoint> endpoints;
 
@@ -37,32 +41,26 @@ class Api {
         'Username': config.username,
         'Password': config.password
       };
-      final _response = await http.post(
-        config.url + '/api/auth',
-        body: json.encode(body),
-        headers: { HttpHeaders.contentTypeHeader: 'application/json' }
-      );
+      final _response = await http.post(config.url + '/api/auth', body: json.encode(body), headers: postHeaders);
       var _json = json.decode(_response.body);
       if (_json['jwt'] == null) throw Exception('Failed to authorize');
       token = _json['jwt'];
     }
   }
 
-  Future<dynamic> get(url) async {
+  Future<dynamic> get(String url) async {
     if (token == null) await authorize();
-    var res = await http.get(config.url + url, headers: { HttpHeaders.authorizationHeader: 'Bearer $token' });
-    if (res.statusCode.toString()[0] != '2') throw Exception('Failed to load $url');
-    return _parseJson(res.body);
+    return handleResponse(url, await http.get(config.url + url, headers: getHeaders));
   }
 
-  Future<dynamic> post(url, body) async {
+  Future<dynamic> post(String url, dynamic body) async {
     if (token == null) await authorize();
-    var res = await http.post(config.url + url, body: json.encode(body), headers: {
-      HttpHeaders.authorizationHeader: 'Bearer $token',
-      HttpHeaders.contentTypeHeader: 'application/json'
-    });
-    if (res.statusCode.toString()[0] != '2') throw Exception('Failed to load $url');
-    return _parseJson(res.body);
+    return handleResponse(url, await http.post(config.url + url, body: json.encode(body), headers: postHeaders));
+  }
+
+  Future<dynamic> delete(String url) async {
+    if (token == null) await authorize();
+    return handleResponse(url, await http.delete(config.url + url, headers: getHeaders));
   }
 
   Future<List<Endpoint>> getEndpoints() async {
@@ -72,6 +70,11 @@ class Api {
     _response.forEach((endpoint) => _endpoints.add(Endpoint.fromJson(endpoint)));
     endpoints = _endpoints;
     return _endpoints;
+  }
+
+  dynamic handleResponse (String url, http.Response response) {
+    if (response.statusCode.toString()[0] != '2') throw Exception('Failed to load $url');
+    return _parseJson(response.body);
   }
 
   dynamic _parseJson(String body) {
