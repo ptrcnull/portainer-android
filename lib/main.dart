@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'api.dart';
 import 'components/asyncList.dart';
-import 'pages/endpointMain.dart';
+import 'pages/endpoint.dart';
 import 'Endpoint.dart';
 
 void main() => runApp(new MyApp());
