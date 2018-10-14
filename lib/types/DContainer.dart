@@ -45,6 +45,12 @@ class DContainer {
     print(_response);
   }
 
+  Future<String> getLogs(int count) async {
+    final _response = await MyApp.api.get(url + '/logs?stderr=1&stdout=1&tail=$count&timestamps=0');
+    print(_response);
+    return _response;
+  }
+
   DContainer(this.endpoint, this.id, this._names, this._image, this.state, this.status);
 
   factory DContainer.fromJson(Endpoint endpoint, Map<String, dynamic> json) {

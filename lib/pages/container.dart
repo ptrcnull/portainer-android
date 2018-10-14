@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'containers.dart';
 import '../types/DContainer.dart';
 import '../components/loader.dart';
+import '../components/logs.dart';
+import 'logs.dart';
 
 var colors = {
   'running': Colors.green[300],
@@ -120,6 +122,15 @@ MaterialPageRoute getContainerPage(DContainer container) {
               title: Text('Image', style: TextStyle(fontSize: 18.0)),
               trailing: Text(container.image),
             ),
+            new ListTile(
+              title: Text('Logs', style: TextStyle(fontSize: 18.0)),
+              onTap: () {
+                Navigator.of(context).push(getContainerLogsPage(container));
+              }
+            ),
+            new ListTile(
+              title: LogsWidget(container, count: 20)
+            )
           ],
         ),
       );
