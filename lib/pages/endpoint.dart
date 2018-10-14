@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'containers.dart';
+import 'images.dart';
 import '../types/Endpoint.dart';
 
 var listItems = [
@@ -30,6 +31,7 @@ MaterialPageRoute getMainEndpointPage(Endpoint endpoint) {
             new ListTile(
               title: Text('Images', style: TextStyle(fontSize: 18.0)),
               trailing: Text(endpoint.imageCount.toString()),
+              onTap: () => Navigator.of(context).push(getImagesPage(endpoint))
             ),
             new ListTile(
               title: Text('Volumes', style: TextStyle(fontSize: 18.0)),

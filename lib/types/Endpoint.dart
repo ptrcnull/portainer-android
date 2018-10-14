@@ -28,8 +28,19 @@ class Endpoint {
     return containers;
   }
 
+  Future<List<DImage>> getImages() async {
+    if (images != null) return images;
+    final _response = await MyApp.api.get('/api/endpoints/$id/docker/images/json');
+    print(_response[0]);
+    images = [];
+    (_response as List<dynamic>)
+      .map((image) => DImage.fromJson(this, image))
+      .forEach((image) => images.add(image));
+    return images;
+  }
+
   List<DContainer> containers;
-  List<Image> images;
+  List<DImage> images;
   List<Volume> volumes;
 
   Endpoint(
