@@ -24,7 +24,7 @@ class Api {
 
   Future<void> loadConfig() async {
     final secrets = await rootBundle.loadString('assets/config.json');
-    this.config = Config.fromJson(json.decode(secrets));
+    config = Config.fromJson(json.decode(secrets));
   }
   
   Future<void> authorize() async {

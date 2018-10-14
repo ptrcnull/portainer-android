@@ -42,7 +42,7 @@ class _EndpointSelectPageState extends State<EndpointSelectPage> {
             icon: Icon(Icons.refresh, color: Colors.white),
             onPressed: () {
               MyApp.api.endpoints = null;
-              this.setState(() => new _EndpointSelectPageState());
+              setState(() => new _EndpointSelectPageState());
             },
           ),
         ],

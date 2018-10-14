@@ -1,5 +1,7 @@
 import '../main.dart';
 import 'DContainer.dart';
+import 'Image.dart';
+import 'Volume.dart';
 
 class Endpoint {
   final int id;
@@ -10,26 +12,28 @@ class Endpoint {
   final int stoppedContainers;
   final int imageCount;
   final int volumeCount;
-  int get containerCount => this.runningContainers + this.stoppedContainers;
+  int get containerCount => runningContainers + stoppedContainers;
 
-  String get containersStatus => this.runningContainers.toString() + '/' + this.containerCount.toString() + ' running';
-  String get status => this.statusNum == 1 ? "up" : "down";
+  String get containersStatus => runningContainers.toString() + '/' + containerCount.toString() + ' running';
+  String get status => statusNum == 1 ? "up" : "down";
 
   Future<List<DContainer>> getContainers() async {
-    if (this.containers != null) return this.containers;
-    final _response = await MyApp.api.get('/api/endpoints/${this.id}/docker/containers/json?all=1');
+    if (containers != null) return containers;
+    final _response = await MyApp.api.get('/api/endpoints/$id/docker/containers/json?all=1');
     print(_response[0]);
-    List<DContainer> containers = [];
-    _response.forEach((container) {
-      var instance = DContainer.fromJson(this, container);
-      instance.name = instance.names[0].substring(1);
-      containers.add(instance);
-    });
-    this.containers = containers;
+    containers = [];
+    (_response as List<Object>)
+      .map((container) => DContainer.fromJson(this, container))
+      .forEach((container) {
+        container.name = container.names[0].substring(1);
+        containers.add(container);
+      });
     return containers;
   }
 
   List<DContainer> containers;
+  List<Image> images;
+  List<Volume> volumes;
 
   Endpoint(
     this.id,

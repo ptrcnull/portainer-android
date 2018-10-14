@@ -9,7 +9,7 @@ class DContainer {
   String name;
   final String status;
   final Endpoint endpoint;
-  String get url => '/api/endpoints/${this.endpoint.id}/docker/containers/${this.id}/';
+  String get url => '/api/endpoints/${endpoint.id}/docker/containers/$id/';
 
   Future<void> start() async {
     final _response = await MyApp.api.post(url + 'start', {});
