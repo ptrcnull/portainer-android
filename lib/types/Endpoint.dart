@@ -2,6 +2,7 @@ import '../main.dart';
 import 'DContainer.dart';
 import 'DImage.dart';
 import 'DVolume.dart';
+import 'DNetwork.dart';
 
 class Endpoint {
   final int id;
@@ -12,6 +13,7 @@ class Endpoint {
   final int stoppedContainers;
   final int imageCount;
   final int volumeCount;
+
   int get containerCount => runningContainers + stoppedContainers;
 
   String get containersStatus => runningContainers.toString() + '/' + containerCount.toString() + ' running';
@@ -49,7 +51,13 @@ class Endpoint {
 
   List<DContainer> containers;
   List<DImage> images;
-  List<Volume> volumes;
+  List<DVolume> volumes;
+  List<DNetwork> networks;
+
+  Function refreshContainers;
+  Function refreshImages;
+  Function refreshVolumes;
+  Function refreshNetworks;
 
   Endpoint(
     this.id,

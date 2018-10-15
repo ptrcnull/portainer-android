@@ -1,5 +1,5 @@
 import '../main.dart';
 
-class Volume {
+class DVolume {
 
 }

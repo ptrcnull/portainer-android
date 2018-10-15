@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'api.dart';
-import 'components/asyncList.dart';
-import 'pages/endpoint.dart';
+import 'components/AsyncList.dart';
+import 'pages/EndpointTabView.dart';
 import 'types/Endpoint.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  static final api = new Api();
+  static final api = Api();
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Portainer',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new EndpointSelectPage(title: 'Select an endpoint'),
+      home: EndpointSelectPage(title: 'Select an endpoint'),
     );
   }
 }
@@ -28,28 +28,28 @@ class EndpointSelectPage extends StatefulWidget {
   EndpointSelectPage({Key key, this.title}) : super(key: key);
 
   @override
-  _EndpointSelectPageState createState() => new _EndpointSelectPageState();
+  _EndpointSelectPageState createState() => _EndpointSelectPageState();
 }
 
 class _EndpointSelectPageState extends State<EndpointSelectPage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.refresh, color: Colors.white),
             onPressed: () {
               MyApp.api.endpoints = null;
-              setState(() => new _EndpointSelectPageState());
+              setState(() => _EndpointSelectPageState());
             },
           ),
         ],
       ),
-      body: createAsyncList(
+      body: AsyncList(
         MyApp.api.getEndpoints(),
-        handler: (context, Endpoint endpoint) => ListTile(
+        builder: (BuildContext context, Endpoint endpoint) => ListTile(
           title: Text(endpoint.name, style: TextStyle(fontSize: 18.0)),
           trailing: Container(
             child: Text(endpoint.status.toString()),
@@ -57,9 +57,11 @@ class _EndpointSelectPageState extends State<EndpointSelectPage> {
               color: endpoint.status == "up" ? Colors.green[300] : Colors.red[300],
               borderRadius: BorderRadius.circular(5.0)
             ),
-            padding: new EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+            padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
           ),
-          onTap: () => Navigator.of(context).push(getMainEndpointPage(endpoint))
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => EndpointTabView(endpoint))
+          )
         )
       )
     );

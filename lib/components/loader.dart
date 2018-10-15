@@ -5,24 +5,24 @@ Future showLoader (BuildContext context, Future future) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
-      return LoaderWidget(future: future, close: (value) => Navigator.of(context).pop(value));
+      return Loader(future: future, close: (value) => Navigator.of(context).pop(value));
     }
   );
 }
 
-class LoaderWidget extends StatefulWidget {
+class Loader extends StatefulWidget {
 
   final Future future;
   final Function close;
 
-  LoaderWidget({Key key, this.future, this.close}): super(key: key);
+  Loader({Key key, this.future, this.close}): super(key: key);
 
   @override
-  _LoaderWidgetState createState() => _LoaderWidgetState();
+  _LoaderState createState() => _LoaderState();
 
 }
 
-class _LoaderWidgetState extends State<LoaderWidget> {
+class _LoaderState extends State<Loader> {
   String loaderText = 'Loading...';
   bool get isLoading => loaderText == 'Loading...';
 
@@ -35,8 +35,8 @@ class _LoaderWidgetState extends State<LoaderWidget> {
   @override
   Widget build(BuildContext context) {
     widget.future.then((value) => widget.close(value)).catchError((error) => setText(error.toString()));
-    return new Dialog(
-      child: new ListView(
+    return Dialog(
+      child: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.all(10.0),
         children: [
